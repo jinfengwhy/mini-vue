@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+
+  <script src="../02_渲染器实现/renderer.js"></script>
+  <script src="../03_响应式系统实现/03_vue3方式.js"></script>
+  <script src="./index.js"></script>
+
+  <script>
+    const app = {
+      data: reactive({
+        counter: 10
+      }),
+      render() {
+        return h('div', {
+            class: 'cba',
+            age: 18,
+            onClick: () => console.log('vnode1 block onclick')
+          }, [
+            h('h2', {
+              class: 'jinfeng',
+              age: 20
+            }, `当前计数：${this.data.counter}`),
+            h('button', {
+              class: 'increment',
+              onClick: () => { // 这里得是箭头函数，才能拿到外部的data.counter
+                this.data.counter++
+                console.log('--- +1');
+              },
+            }, '+1'),
+            h('button', {
+              class: 'decrement',
+              onClick: () => {
+                this.data.counter--
+                console.log('--- -1');
+              }
+            }, '-1')
+          ]
+        )
+      }
+    }
+  
+    createApp(app).mount('#app')
+  </script>
+</body>
+</html>

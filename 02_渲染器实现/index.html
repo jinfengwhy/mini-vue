@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script src="./renderer.js"></script>
+
+  <script>
+    const vnode = h('div', {
+      class: 'abc',
+      onClick: () => console.log('vnode div onclick')
+    }, [
+      h('h2', {
+        class: 'why'
+      }, '当前计数：100'),
+      h('button', {
+        class: 'add',
+        onClick() {
+          console.log('---触发了click事件');
+        },
+      }, '+1')
+    ])
+
+    mount(vnode, document.querySelector('#app'))
+
+    const vnode1 = h('div', {
+      class: 'cba',
+      age: 18,
+      onClick: () => console.log('vnode1 block onclick')
+    }, [
+      h('h2', {
+        class: 'jinfeng',
+        age: 20
+      }, '当前计数：0'),
+      h('button', {
+        class: 'increment',
+        onClick() {
+          console.log('--- +1');
+        },
+      }, '+1'),
+      h('button', {
+        class: 'decrement',
+        onClick() {
+          console.log('--- -1');
+        }
+      }, '-1')
+    ]
+  )
+
+    setTimeout(() => {
+      patch(vnode, vnode1)
+    }, 2000)
+
+  </script>
+</body>
+</html>
